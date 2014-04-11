@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Emerald::VERSION
   spec.authors       = ["Bryce Davis"]
   spec.email         = ["bad1128@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{The Emerald Programming Language}
+  spec.description   = %q{Emerald is a simple programming language inspired by Ruby and C, mostly so I can learn language development.}
+  spec.homepage      = "https://github.com/mahimahi42/emerald"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
