@@ -5,7 +5,8 @@ module Emerald
     class EmeraldREPL
         def initialize
             @emerald = EmeraldLang.new()
-            puts "Welcome to the Emerald REPL v#{Emerald::VERSION}\n\n"
+            puts "Welcome to the Emerald REPL v#{Emerald::VERSION}"
+            puts "Quit the REPL with quit_repl\n\n"
             repl = -> prompt do
                 print prompt
                 handle_input(gets.chomp!)

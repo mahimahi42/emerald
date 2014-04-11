@@ -16,7 +16,7 @@ local Ruby interpreter.
 
 #### Note
 
-Emerald is pre-alpha, and nothing works (yet).
+Emerald is pre-alpha, and most things don't work (yet).
 
 ## Installation
 

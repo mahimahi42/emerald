@@ -60,6 +60,9 @@ class EmeraldLang < Racc::Parser
       when (text = @ss.scan(/[ \t]+/))
         ;
 
+      when (text = @ss.scan(//))
+         action {[:COMMENT, text]}
+
       when (text = @ss.scan(/\d+/))
          action {[:INT, text.to_i]}
 
