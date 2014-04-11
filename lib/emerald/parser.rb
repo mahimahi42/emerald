@@ -11,7 +11,7 @@ require 'racc/parser.rb'
 
 class EmeraldLang < Racc::Parser
 
-module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 20)
+module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 21)
     def initialize
         @global_env = Emerald::EmeraldEnvironment.new()
     end
@@ -27,30 +27,32 @@ module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 20)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     6,     2,     3,     4,    12,     5,     7,     7,     7,     2,
-     3,     4,    13,     5,     2,     3,     4,    10,     5,     2,
-     3,     4,     9,     5,     7 ]
+     6,     2,     3,     4,    14,     5,     7,     7,     7,     2,
+     3,     4,    11,     5,     2,     3,     4,    15,     5,     2,
+     3,     4,    10,     5,     2,     3,     4,     7,     5,     8,
+     7 ]
 
 racc_action_check = [
-     1,     4,     4,     4,     8,     4,    11,     8,     1,     0,
-     0,     0,     9,     0,    13,    13,    13,     6,    13,     7,
-     7,     7,     5,     7,    14 ]
+     1,    15,    15,    15,     9,    15,    12,     9,     1,     0,
+     0,     0,     6,     0,     4,     4,     4,    10,     4,     7,
+     7,     7,     5,     7,     8,     8,     8,    13,     8,     3,
+    16 ]
 
 racc_action_pointer = [
-     7,     0,   nil,   nil,    -1,    19,    17,    17,    -1,     5,
-   nil,    -2,   nil,    12,    16 ]
+     7,     0,   nil,    22,    12,    19,    12,    17,    22,    -1,
+    10,   nil,    -2,    19,   nil,    -1,    22 ]
 
 racc_action_default = [
-    -6,    -6,    -1,    -2,    -6,    -6,    -6,    -6,    -6,    -6,
-    15,    -5,    -3,    -6,    -4 ]
+    -7,    -7,    -1,    -2,    -7,    -7,    -7,    -7,    -7,    -7,
+    -7,    17,    -6,    -5,    -3,    -7,    -4 ]
 
 racc_goto_table = [
-     1,   nil,   nil,   nil,     8,   nil,   nil,    11,   nil,   nil,
-   nil,   nil,   nil,    14 ]
+     1,   nil,   nil,   nil,     9,   nil,   nil,    12,    13,   nil,
+   nil,   nil,   nil,   nil,   nil,    16 ]
 
 racc_goto_check = [
-     1,   nil,   nil,   nil,     1,   nil,   nil,     1,   nil,   nil,
-   nil,   nil,   nil,     1 ]
+     1,   nil,   nil,   nil,     1,   nil,   nil,     1,     1,   nil,
+   nil,   nil,   nil,   nil,   nil,     1 ]
 
 racc_goto_pointer = [
    nil,     0 ]
@@ -64,11 +66,12 @@ racc_reduce_table = [
   1, 10, :_reduce_2,
   3, 10, :_reduce_3,
   4, 10, :_reduce_4,
-  3, 10, :_reduce_5 ]
+  3, 10, :_reduce_5,
+  3, 10, :_reduce_6 ]
 
-racc_reduce_n = 6
+racc_reduce_n = 7
 
-racc_shift_n = 15
+racc_shift_n = 17
 
 racc_token_table = {
   false => 0,
@@ -130,11 +133,11 @@ module_eval(<<'.,.,', 'em_parser.y.rb', 2)
 module_eval(<<'.,.,', 'em_parser.y.rb', 3)
   def _reduce_2(val, _values, result)
      res = @global_env.lookup(val[0])
-                                if res.nil?
-                                    return val[0]
-                                else
-                                    return res 
-                                end 
+                                    if res.nil?
+                                        return val[0]
+                                    else
+                                        return res 
+                                    end 
     result
   end
 .,.,
@@ -148,13 +151,20 @@ module_eval(<<'.,.,', 'em_parser.y.rb', 9)
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 10)
   def _reduce_4(val, _values, result)
-     @global_env[val[1]] = val[3]; return @global_env 
+     @global_env[val[1]] = val[3]; return val[3] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 11)
   def _reduce_5(val, _values, result)
+     @global_env[val[0]] = val[2]; return val[2] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 12)
+  def _reduce_6(val, _values, result)
      return self.bin_op(val[0], val[1], val[2]) 
     result
   end
