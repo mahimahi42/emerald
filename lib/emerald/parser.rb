@@ -128,7 +128,7 @@ module_eval(<<'.,.,', 'em_parser.y.rb', 5)
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 6)
   def _reduce_5(val, _values, result)
-     if val[0] == 0
+     if val[2] == 0
                                    return 0
                                else
                                    return val[0] / val[2] 
