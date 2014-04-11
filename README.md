@@ -63,6 +63,21 @@ Here is what I'd like Emerald to look like
     // has to return a value
     val result = if (test) { 1 } else { 0 };
 
+This is what you currently can do in Emerald
+
+    // Mutable assignment
+    var x = 5
+    // Multiple mutable assignment
+    var y = x = 6
+    // Variable referencing
+    x + y
+    // Nil
+    x = nil
+    // If-statements, everything but nil is true
+    var z = if x { 6 } else { 7 }
+    // Parens are optional around expressions
+    var q = if (x) { 6 } else { 7 }
+
 You can run the Emerald REPL by simply typing:
 
     $ emerald
