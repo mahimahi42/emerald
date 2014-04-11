@@ -31,5 +31,18 @@ class EmeraldLexerTester
             result = @emerald.tokenize("        ")
             result[0].should == nil
         end
+
+        it "handles commas" do
+            result = @emerald.tokenize(",")
+            result[0][0].should == :COMMA
+            result[0][1].should == ","
+        end
+
+        it "handles comma separated values" do
+            result = @emerald.tokenize("2,2")
+            result[0].should == [:INT, 2]
+            result[1].should == [:COMMA, ","]
+            result[2].should == [:INT, 2]
+        end
     end
 end

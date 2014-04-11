@@ -17,6 +17,7 @@ macro
     GT      >
     LE      <=
     GE      >=
+    COMMA   ,
 
 rule
     {BLANK}   # no action
@@ -36,6 +37,7 @@ rule
     {GT}      {[:OP, text]}
     {LE}      {[:OP, text]}
     {GE}      {[:OP, text]}
+    {COMMA}   {[:COMMA, text]}
     .         {"Unknown char"}
 
 inner

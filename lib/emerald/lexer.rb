@@ -108,6 +108,9 @@ class EmeraldLang < Racc::Parser
       when (text = @ss.scan(/>=/))
          action {[:OP, text]}
 
+      when (text = @ss.scan(/,/))
+         action {[:COMMA, text]}
+
       when (text = @ss.scan(/./))
          action {"Unknown char"}
 

@@ -22,4 +22,16 @@ module Emerald
             puts(" => #{@emerald.parse(input)}")
         end
     end
+
+    class EmeraldEnvironment < Hash
+        attr_accessor :parent
+        
+        def initialize(parent)
+            @parent = parent
+        end
+
+        def lookup(var)
+            self.fetch(var)
+        end
+    end
 end
