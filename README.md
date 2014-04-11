@@ -47,7 +47,7 @@ Here is what I'd like Emerald to look like
 
     // Another way to define a function
     val hello_world = func(name) { print("Hello, #{name}"); }
-    hello_world("Bryce");
+    hello_world("Bryce"); // #=> Hello, Bryce
 
     val test = true;
     // Everything is an expression, and therefore
@@ -56,7 +56,7 @@ Here is what I'd like Emerald to look like
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/emerald/fork )
+1. Fork it ( https://github.com/mahimahi42/emerald/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
