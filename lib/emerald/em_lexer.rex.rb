@@ -19,6 +19,8 @@ macro
     GE      >=
     COMMA   ,
     SYM     [a-zA-Z]+
+    VAR     var
+    VAL     val
 
 rule
     {BLANK}   # no action
@@ -39,6 +41,8 @@ rule
     {LE}      {[:OP, text]}
     {GE}      {[:OP, text]}
     {COMMA}   {[:COMMA, text]}
+    {VAR}     {[:VAR, text]}
+    {VAL}     {[:VAL, text]}
     {SYM}     {[:SYM, text]}
     #.         {"Unknown char"}
 

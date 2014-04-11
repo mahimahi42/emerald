@@ -8,7 +8,7 @@ rule
                                     return res 
                                 end }
          | LPAREN expr RPAREN { return val[1] }
-         | SYM EQUAL expr     { @global_env[val[0]] = val[2]; return @global_env }
+         | VAR SYM EQUAL expr     { @global_env[val[1]] = val[3]; return @global_env }
          | expr OP expr       { return self.bin_op(val[0], val[1], val[2]) }
 end
 

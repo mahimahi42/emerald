@@ -5,6 +5,15 @@ in Ruby, using `rex` and `racc` to generate the grammer and parser. It combines
 the expressiveness of Ruby with the (in my opinion) easier on the eyes syntax
 of C.
 
+Emerald is interpreted, not compiled. Any scripts you run, whether in the REPL
+or loaded from files are interpreted line by line. Yes, compilation would make
+execution faster, but I'm choosing simplicity over speed with Emerald.
+
+Not only is Emerald written in and based off Ruby, it will be able to run 
+Ruby code, probably with a `ruby()` function or modifier. During interpretation,
+in fact, Emerald code is converted to Ruby code, then interpreted with your
+local Ruby interpreter.
+
 #### Note
 
 Emerald is pre-alpha, and nothing works (yet).
@@ -53,6 +62,13 @@ Here is what I'd like Emerald to look like
     // Everything is an expression, and therefore
     // has to return a value
     val result = if (test) { 1 } else { 0 };
+
+You can run the Emerald REPL by simply typing:
+
+    $ emerald
+
+Emerald currently does not support file loading (this is pre-alpha software,
+remember?), but will soon!
 
 ## Contributing
 
