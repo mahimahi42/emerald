@@ -1,36 +1,16 @@
 class EmeraldLang
 rule
-    #value : INT ;
-
-    #op : ADD
-    #   | SUB
-    #   | MUL
-    #   | DIV
-    #   | CEQUAL
-    #   | NEQUAL
-    #   | LT
-    #   | GT
-    #   | LE
-    #   | GE ;
-
-    expr : INT
-         | INT OP INT         { return self.bin_op(val[0], val[1], val[2]) }
+    expr : INT                { return val[0].to_i }
+         | SYM                { return @global_env.lookup(val[0]) }
          | LPAREN expr RPAREN { return val[1] }
-
-   #expression : INT 
-   #     | INT ADD INT    { return val[0] + val[2] }
-   #     | INT SUB INT    { return val[0] - val[2] }
-   #     | INT MUL INT    { return val[0] * val[2] }
-   #     | INT DIV INT    { if val[2] == 0
-   #                                return 0
-   #                            else
-   #                                return val[0] / val[2] 
-   #                            end }
-   #     | LPAREN expression RPAREN { return val[1] }
+         | SYM EQUAL expr     { @global_env[val[0]] = val[2]; return @global_env }
+         | expr OP expr       { return self.bin_op(val[0], val[1], val[2]) }
 end
 
 ---- header
     require_relative "lexer"
+    require_relative "../emerald"
+    @global_env = Emerald::EmeraldEnvironment.new()
 
 ---- inner
     def parse(input)
@@ -38,32 +18,5 @@ end
     end
 
     def bin_op(left, op, right)
-=begin
-        case op
-            when "+"
-                return eval("#{left} + #{right}")
-            when "-"
-                return left - right
-            when "*"
-                return left * right
-            when "/"
-                return left / right unless right == 0
-                return 0
-            when "=="
-                return left == right
-            when "!="
-                return left != right
-            when "<"
-                return left < right
-            when ">"
-                return left > right
-            when "<="
-                return left <= right
-            when ">="
-                return left >= right
-            else
-                return nil
-        end
-=end
         return eval("#{left} #{op} #{right}")
     end

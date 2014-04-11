@@ -18,6 +18,7 @@ macro
     LE      <=
     GE      >=
     COMMA   ,
+    SYM     [a-zA-Z]+
 
 rule
     {BLANK}   # no action
@@ -38,7 +39,8 @@ rule
     {LE}      {[:OP, text]}
     {GE}      {[:OP, text]}
     {COMMA}   {[:COMMA, text]}
-    .         {"Unknown char"}
+    {SYM}     {[:SYM, text]}
+    #.         {"Unknown char"}
 
 inner
     def tokenize(code)

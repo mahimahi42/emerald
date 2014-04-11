@@ -12,11 +12,6 @@ class EmeraldLexerTester
             result[0][1].should == 234
         end
 
-        it "tests for unknown chars" do
-            result = @emerald.tokenize("abc")
-            result[0].should == "Unknown char"
-        end
-
         it "tests for multitoken inputs" do
             result = @emerald.tokenize("2 + 2")
             result[0][0].should == :INT
@@ -43,6 +38,11 @@ class EmeraldLexerTester
             result[0].should == [:INT, 2]
             result[1].should == [:COMMA, ","]
             result[2].should == [:INT, 2]
+        end
+
+        it "handles symbols" do
+            result = @emerald.tokenize("derp")
+            result[0].should == [:SYM, "derp"]
         end
     end
 end

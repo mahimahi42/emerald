@@ -20,5 +20,10 @@ class EmeraldParserTester
             @result = @emerald.parse("(2 + 2)")
             @result.should == 4
         end
+
+        it "parses symbols" do
+            @result = @emerald.parse("x = 2")
+            @result["x"].should == 2
+        end
     end
 end
