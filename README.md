@@ -1,6 +1,13 @@
 # Emerald
 
-TODO: Write a gem description
+Emerald is a simple programming language inspired by Ruby and C. It is written
+in Ruby, using `rex` and `racc` to generate the grammer and parser. It combines
+the expressiveness of Ruby with the (in my opinion) easier on the eyes syntax
+of C.
+
+#### Note
+
+Emerald is pre-alpha, and nothing works (yet).
 
 ## Installation
 
@@ -18,7 +25,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Here is what I'd like Emerald to look like
+
+    // This is an Emerald comment
+    ### This is also an Emerald comment,
+        but will be a comment until another
+        three octothorpes are encountered ###
+    val x = 3; // Immutable
+    var y = 4; // Mutable
+    y = 5;     // Ok
+    x = 5;     // NOT Ok
+
+    def fib(n) {
+        if (n < 3) {
+            return 1
+        } else {
+            return fib(n - 1) + fib(n - 2)
+        }
+    }
 
 ## Contributing
 
