@@ -10,31 +10,55 @@ require 'racc/parser.rb'
 
 class EmeraldLang < Racc::Parser
 
-module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 19)
+module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 36)
     def parse(input)
         scan_str(input)
+    end
+
+    def bin_op(left, op, right)
+        case op
+            when "+"
+                return left + right
+            when "-"
+                return left - right
+            when "*"
+                return left * right
+            when "/"
+                return left / right unless right == 0
+                return 0
+            when "=="
+                return left == right
+            when "!="
+                return left != right
+            when "<"
+                return left < right
+            when ">"
+                return left > right
+            when "<="
+                return left <= right
+            when ">="
+                return left >= right
+            else
+                return nil
+        end
     end
 ...end em_parser.y.rb/module_eval...
 ##### State transition tables begin ###
 
 racc_action_table = [
-     2,     2,    11,    10,     4,     3,     3,     5,     6,     7,
-     8,    12,    13,    14,    15 ]
+     2,     2,     3,     3,     5,     4,     7,     8,     9 ]
 
 racc_action_check = [
-     0,     3,     5,     4,     1,     0,     3,     2,     2,     2,
-     2,     6,     7,     8,     9 ]
+     0,     3,     0,     3,     2,     1,     4,     5,     6 ]
 
 racc_action_pointer = [
-    -2,     4,     4,    -1,     3,     0,     9,    10,    11,     6,
-   nil,   nil,   nil,   nil,   nil,   nil ]
+    -2,     5,     1,    -1,     6,     5,     3,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -7,    -7,    -1,    -7,    -7,    -7,    -7,    -7,    -7,    -7,
-    16,    -2,    -3,    -4,    -5,    -6 ]
+    -4,    -4,    -1,    -4,    -4,    -4,    -4,    10,    -2,    -3 ]
 
 racc_goto_table = [
-     1,   nil,   nil,     9 ]
+     1,   nil,   nil,     6 ]
 
 racc_goto_check = [
      1,   nil,   nil,     1 ]
@@ -47,29 +71,23 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 10, :_reduce_none,
-  3, 10, :_reduce_2,
-  3, 10, :_reduce_3,
-  3, 10, :_reduce_4,
-  3, 10, :_reduce_5,
-  3, 10, :_reduce_6 ]
+  1, 7, :_reduce_none,
+  3, 7, :_reduce_2,
+  3, 7, :_reduce_3 ]
 
-racc_reduce_n = 7
+racc_reduce_n = 4
 
-racc_shift_n = 16
+racc_shift_n = 10
 
 racc_token_table = {
   false => 0,
   :error => 1,
   :INT => 2,
-  :ADD => 3,
-  :SUB => 4,
-  :MUL => 5,
-  :DIV => 6,
-  :LPAREN => 7,
-  :RPAREN => 8 }
+  :OP => 3,
+  :LPAREN => 4,
+  :RPAREN => 5 }
 
-racc_nt_base = 9
+racc_nt_base = 6
 
 racc_use_result_var = true
 
@@ -93,14 +111,11 @@ Racc_token_to_s_table = [
   "$end",
   "error",
   "INT",
-  "ADD",
-  "SUB",
-  "MUL",
-  "DIV",
+  "OP",
   "LPAREN",
   "RPAREN",
   "$start",
-  "expression" ]
+  "expr" ]
 
 Racc_debug_parser = false
 
@@ -110,40 +125,15 @@ Racc_debug_parser = false
 
 # reduce 1 omitted
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 3)
+module_eval(<<'.,.,', 'em_parser.y.rb', 16)
   def _reduce_2(val, _values, result)
-     return val[0] + val[2] 
+     return self.bin_op(val[0], val[1], val[2]) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 4)
+module_eval(<<'.,.,', 'em_parser.y.rb', 17)
   def _reduce_3(val, _values, result)
-     return val[0] - val[2] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'em_parser.y.rb', 5)
-  def _reduce_4(val, _values, result)
-     return val[0] * val[2] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'em_parser.y.rb', 6)
-  def _reduce_5(val, _values, result)
-     if val[2] == 0
-                                   return 0
-                               else
-                                   return val[0] / val[2] 
-                               end 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'em_parser.y.rb', 11)
-  def _reduce_6(val, _values, result)
      return val[1] 
     result
   end

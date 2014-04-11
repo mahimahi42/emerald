@@ -21,7 +21,7 @@ class EmeraldLexerTester
             result = @emerald.tokenize("2 + 2")
             result[0][0].should == :INT
             result[0][1].should == 2
-            result[1][0].should == :ADD
+            result[1][0].should == :OP
             result[1][1].should == "+"
             result[2][0].should == :INT
             result[2][1].should == 2

@@ -21,21 +21,21 @@ macro
 rule
     {BLANK}   # no action
     {INT}     {[:INT, text.to_i]}
-    {ADD}     {[:ADD, text]}
-    {SUB}     {[:SUB, text]}
-    {MUL}     {[:MUL, text]}
-    {DIV}     {[:DIV, text]}
+    {ADD}     {[:OP, text]}
+    {SUB}     {[:OP, text]}
+    {MUL}     {[:OP, text]}
+    {DIV}     {[:OP, text]}
     {LPAREN}  {[:LPAREN, text]}
     {RPAREN}  {[:RPAREN, text]}
     {LBRACE}  {[:LBRACE, text]}
     {RBRACE}  {[:RBRACE, text]}
     {EQUAL}   {[:EQUAL, text]}
-    {CEQUAL}  {[:CEQUAL, text]}
-    {NEQUAL}  {[:NEQUAL, text]}
-    {LT}      {[:LT, text]}
-    {GT}      {[:GT, text]}
-    {LE}      {[:LE, text]}
-    {GE}      {[:GE, text]}
+    {CEQUAL}  {[:OP, text]}
+    {NEQUAL}  {[:OP, text]}
+    {LT}      {[:OP, text]}
+    {GT}      {[:OP, text]}
+    {LE}      {[:OP, text]}
+    {GE}      {[:OP, text]}
     .         {"Unknown char"}
 
 inner
