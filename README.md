@@ -45,6 +45,10 @@ Here is what I'd like Emerald to look like
         }
     }
 
+    // Another way to define a function
+    val hello_world = func(name) { print("Hello, #{name}"); }
+    hello_world("Bryce");
+
     val test = true;
     // Everything is an expression, and therefore
     // has to return a value
