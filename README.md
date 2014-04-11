@@ -38,11 +38,17 @@ Here is what I'd like Emerald to look like
 
     def fib(n) {
         if (n < 3) {
-            return 1
+            // Explicit returns are OK, but not required
+            return 1;
         } else {
-            return fib(n - 1) + fib(n - 2)
+            return fib(n - 1) + fib(n - 2);
         }
     }
+
+    val test = true;
+    // Everything is an expression, and therefore
+    // has to return a value
+    val result = if (test) { 1 } else { 0 };
 
 ## Contributing
 
