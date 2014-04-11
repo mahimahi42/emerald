@@ -57,11 +57,26 @@ class EmeraldLang < Racc::Parser
     token = case @state
     when nil
       case
+      when (text = @ss.scan(/[ \t]+/))
+        ;
+
       when (text = @ss.scan(/\d+/))
-         action { return text.to_i }
+         action {[:INT, text.to_i]}
+
+      when (text = @ss.scan(/\+/))
+         action {[:ADD, text]}
+
+      when (text = @ss.scan(/\-/))
+         action {[:SUB, text]}
+
+      when (text = @ss.scan(/\*/))
+         action {[:MUL, text]}
+
+      when (text = @ss.scan(/\//))
+         action {[:DIV, text]}
 
       when (text = @ss.scan(/./))
-         action { return "Unknown char" }
+         action {"Unknown char"}
 
       else
         text = @ss.string[@ss.pos .. -1]
@@ -74,12 +89,12 @@ class EmeraldLang < Racc::Parser
     token
   end  # def _next_token
 
-def tokenize(code)
-    scan_setup(code)
-    tokens = []
-    while token = next_token
-        tokens << token
+    def tokenize(code)
+        scan_setup(code)
+        tokens = []
+        while token = next_token
+            tokens << token
+        end
+        tokens
     end
-    tokens
 end # class
-end
