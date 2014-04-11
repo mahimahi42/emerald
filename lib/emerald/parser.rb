@@ -16,9 +16,10 @@ module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 36)
     end
 
     def bin_op(left, op, right)
+=begin
         case op
             when "+"
-                return left + right
+                return eval("#{left} + #{right}")
             when "-"
                 return left - right
             when "*"
@@ -41,6 +42,8 @@ module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 36)
             else
                 return nil
         end
+=end
+        return eval("#{left} #{op} #{right}")
     end
 ...end em_parser.y.rb/module_eval...
 ##### State transition tables begin ###

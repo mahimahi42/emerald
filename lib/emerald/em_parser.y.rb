@@ -38,9 +38,10 @@ end
     end
 
     def bin_op(left, op, right)
+=begin
         case op
             when "+"
-                return left + right
+                return eval("#{left} + #{right}")
             when "-"
                 return left - right
             when "*"
@@ -63,4 +64,6 @@ end
             else
                 return nil
         end
+=end
+        return eval("#{left} #{op} #{right}")
     end
