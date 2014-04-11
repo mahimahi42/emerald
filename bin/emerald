@@ -4,7 +4,8 @@ begin
     require 'emerald'
 rescue LoadError
     require 'rubygems'
-    require 'emerald
+    require 'emerald'
 end
 
-puts "Hello, world!"
+#puts "Hello, world!"
+Emerald::EmeraldREPL.new()
