@@ -39,4 +39,12 @@ module Emerald
             end
         end
     end
+
+    class EmeraldValue
+        attr_accessor :value
+
+        def initialize(value = nil)
+            @value = value
+        end
+    end
 end

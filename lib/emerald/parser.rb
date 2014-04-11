@@ -11,13 +11,21 @@ require 'racc/parser.rb'
 
 class EmeraldLang < Racc::Parser
 
-module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 21)
+module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 41)
     def initialize
         @global_env = Emerald::EmeraldEnvironment.new()
     end
 
     def parse(input)
         scan_str(input)
+    end
+
+    def make_new_value(value)
+        return Emerald::EmeraldValue.new(value)
+    end
+
+    def add_to_global_env(key, value)
+        @global_env[key] = value
     end
 
     def bin_op(left, op, right)
@@ -27,32 +35,54 @@ module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 21)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     6,     2,     3,     4,    14,     5,     7,     7,     7,     2,
-     3,     4,    11,     5,     2,     3,     4,    15,     5,     2,
-     3,     4,    10,     5,     2,     3,     4,     7,     5,     8,
+     8,    14,     2,     3,     4,     5,     9,     6,    19,     9,
+     7,     2,     3,     4,     5,     9,     6,    25,    35,     7,
+     2,     3,     4,     5,     9,     6,     9,    31,     7,     2,
+     3,     4,     5,     9,     6,    18,    22,     7,     2,     3,
+     4,     5,     9,     6,    12,    29,     7,     2,     3,     4,
+     5,    17,     6,     9,     9,     7,     2,     3,     4,     5,
+     9,     6,    28,    32,     7,     2,     3,     4,     5,    33,
+     6,    23,    24,     7,     2,     3,     4,     5,    10,     6,
+     9,   nil,     7,     2,     3,     4,     5,   nil,     6,   nil,
+   nil,     7,     2,     3,     4,     5,   nil,     6,   nil,   nil,
      7 ]
 
 racc_action_check = [
-     1,    15,    15,    15,     9,    15,    12,     9,     1,     0,
-     0,     0,     6,     0,     4,     4,     4,    10,     4,     7,
-     7,     7,     5,     7,     8,     8,     8,    13,     8,     3,
-    16 ]
+     1,     8,     7,     7,     7,     7,    13,     7,    13,     1,
+     7,    33,    33,    33,    33,    34,    33,    23,    34,    33,
+     5,     5,     5,     5,    30,     5,    20,    30,     5,    28,
+    28,    28,    28,    21,    28,    12,    21,    28,     0,     0,
+     0,     0,    27,     0,     6,    27,     0,    25,    25,    25,
+    25,    11,    25,    16,    11,    25,     9,     9,     9,     9,
+    26,     9,    26,    31,     9,    10,    10,    10,    10,    32,
+    10,    22,    22,    10,    24,    24,    24,    24,     3,    24,
+    15,   nil,    24,    18,    18,    18,    18,   nil,    18,   nil,
+   nil,    18,    19,    19,    19,    19,   nil,    19,   nil,   nil,
+    19 ]
 
 racc_action_pointer = [
-     7,     0,   nil,    22,    12,    19,    12,    17,    22,    -1,
-    10,   nil,    -2,    19,   nil,    -1,    22 ]
+    36,     0,   nil,    70,   nil,    18,    41,     0,     1,    54,
+    63,    45,    27,    -3,   nil,    71,    44,   nil,    81,    90,
+    17,    24,    58,     6,    72,    45,    51,    33,    27,   nil,
+    15,    50,    58,     9,     6,   nil ]
 
 racc_action_default = [
-    -7,    -7,    -1,    -2,    -7,    -7,    -7,    -7,    -7,    -7,
-    -7,    17,    -6,    -5,    -3,    -7,    -4 ]
+   -11,   -11,    -1,    -2,    -3,   -11,   -11,   -11,   -11,   -11,
+   -11,   -11,   -11,   -11,    36,    -7,    -6,    -4,   -11,   -11,
+    -5,   -11,    -8,   -11,   -11,   -11,   -11,   -11,   -11,    -9,
+   -11,   -11,   -11,   -11,   -11,   -10 ]
 
 racc_goto_table = [
-     1,   nil,   nil,   nil,     9,   nil,   nil,    12,    13,   nil,
-   nil,   nil,   nil,   nil,   nil,    16 ]
+     1,   nil,   nil,   nil,   nil,    11,   nil,    13,   nil,    15,
+    16,   nil,   nil,   nil,   nil,   nil,   nil,   nil,    20,    21,
+   nil,   nil,   nil,   nil,    26,    27,   nil,   nil,    30,   nil,
+   nil,   nil,   nil,    34 ]
 
 racc_goto_check = [
-     1,   nil,   nil,   nil,     1,   nil,   nil,     1,     1,   nil,
-   nil,   nil,   nil,   nil,   nil,     1 ]
+     1,   nil,   nil,   nil,   nil,     1,   nil,     1,   nil,     1,
+     1,   nil,   nil,   nil,   nil,   nil,   nil,   nil,     1,     1,
+   nil,   nil,   nil,   nil,     1,     1,   nil,   nil,     1,   nil,
+   nil,   nil,   nil,     1 ]
 
 racc_goto_pointer = [
    nil,     0 ]
@@ -62,29 +92,39 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 10, :_reduce_1,
-  1, 10, :_reduce_2,
-  3, 10, :_reduce_3,
-  4, 10, :_reduce_4,
-  3, 10, :_reduce_5,
-  3, 10, :_reduce_6 ]
+  1, 16, :_reduce_1,
+  1, 16, :_reduce_2,
+  1, 16, :_reduce_3,
+  3, 16, :_reduce_4,
+  4, 16, :_reduce_5,
+  3, 16, :_reduce_6,
+  3, 16, :_reduce_7,
+  5, 16, :_reduce_8,
+  9, 16, :_reduce_9,
+  14, 16, :_reduce_10 ]
 
-racc_reduce_n = 7
+racc_reduce_n = 11
 
-racc_shift_n = 17
+racc_shift_n = 36
 
 racc_token_table = {
   false => 0,
   :error => 1,
   :INT => 2,
   :SYM => 3,
-  :LPAREN => 4,
-  :RPAREN => 5,
-  :VAR => 6,
-  :EQUAL => 7,
-  :OP => 8 }
+  :NIL => 4,
+  :LPAREN => 5,
+  :RPAREN => 6,
+  :VAR => 7,
+  :EQUAL => 8,
+  :OP => 9,
+  :IF => 10,
+  :LBRACE => 11,
+  :RBRACE => 12,
+  :ELSE => 13,
+  :ELSIF => 14 }
 
-racc_nt_base = 9
+racc_nt_base = 15
 
 racc_use_result_var = true
 
@@ -109,11 +149,17 @@ Racc_token_to_s_table = [
   "error",
   "INT",
   "SYM",
+  "NIL",
   "LPAREN",
   "RPAREN",
   "VAR",
   "EQUAL",
   "OP",
+  "IF",
+  "LBRACE",
+  "RBRACE",
+  "ELSE",
+  "ELSIF",
   "$start",
   "expr" ]
 
@@ -133,39 +179,83 @@ module_eval(<<'.,.,', 'em_parser.y.rb', 2)
 module_eval(<<'.,.,', 'em_parser.y.rb', 3)
   def _reduce_2(val, _values, result)
      res = @global_env.lookup(val[0])
-                                    if res.nil?
-                                        return val[0]
-                                    else
-                                        return res 
-                                    end 
+                                  if res.nil?
+                                      return val[0]
+                                  else
+                                      return res.value 
+                                  end 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 9)
   def _reduce_3(val, _values, result)
-     return val[1] 
+     return nil 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 10)
   def _reduce_4(val, _values, result)
-     @global_env[val[1]] = val[3]; return val[3] 
+     return val[1] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'em_parser.y.rb', 11)
   def _reduce_5(val, _values, result)
-     @global_env[val[0]] = val[2]; return val[2] 
+     obj = self.make_new_value(val[3])
+                                  self.add_to_global_env(val[1], obj)
+                                  return val[3] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 12)
+module_eval(<<'.,.,', 'em_parser.y.rb', 14)
   def _reduce_6(val, _values, result)
+     obj = self.make_new_value(val[2])
+                                  self.add_to_global_env(val[0], obj)
+                                  return val[2] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 17)
+  def _reduce_7(val, _values, result)
      return self.bin_op(val[0], val[1], val[2]) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 18)
+  def _reduce_8(val, _values, result)
+     if val[1]
+                                            return val[3]
+                                        end 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 21)
+  def _reduce_9(val, _values, result)
+     if val[1]
+                                                                 return val[3]
+                                                                else
+                                                                 return val[7]
+                                                                end 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 26)
+  def _reduce_10(val, _values, result)
+     if val[1]
+                                                                                               return val[3]
+                                                                                              elsif val[6]
+                                                                                               return val[8]
+                                                                                              else
+                                                                                               return val[12]
+                                                                                              end 
     result
   end
 .,.,

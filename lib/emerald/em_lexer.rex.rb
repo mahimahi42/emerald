@@ -1,6 +1,6 @@
 class EmeraldLang
 macro
-    BLANK   [\ \t]+
+    BLANK   [\ \t\n]+
     INT     \d+
     ADD     \+
     SUB     \-
@@ -18,9 +18,13 @@ macro
     LE      <=
     GE      >=
     COMMA   ,
-    SYM     [a-zA-Z]+
     VAR     var
     VAL     val
+    IF      if
+    ELSE    else
+    ELSIF   elsif
+    NIL     nil
+    SYM     \w+
 
 rule
     {BLANK}   # no action
@@ -43,6 +47,10 @@ rule
     {COMMA}   {[:COMMA, text]}
     {VAR}     {[:VAR, text]}
     {VAL}     {[:VAL, text]}
+    {IF}      {[:IF, text]}
+    {ELSE}    {[:ELSE, text]}
+    {ELSIF}   {[:ELSIF, text]}
+    {NIL}     {[:NIL, nil]}
     {SYM}     {[:SYM, text]}
     #.         {"Unknown char"}
 

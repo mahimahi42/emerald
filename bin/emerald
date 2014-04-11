@@ -7,5 +7,8 @@ rescue LoadError
     require 'emerald'
 end
 
-#puts "Hello, world!"
-Emerald::EmeraldREPL.new()
+if ARGV.count == 0
+    Emerald::EmeraldREPL.new()
+else
+    puts "Trying to load a file, but I can't yet!"
+end

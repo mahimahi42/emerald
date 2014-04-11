@@ -117,7 +117,19 @@ class EmeraldLang < Racc::Parser
       when (text = @ss.scan(/val/))
          action {[:VAL, text]}
 
-      when (text = @ss.scan(/[a-zA-Z]+/))
+      when (text = @ss.scan(/if/))
+         action {[:IF, text]}
+
+      when (text = @ss.scan(/else/))
+         action {[:ELSE, text]}
+
+      when (text = @ss.scan(/elsif/))
+         action {[:ELSIF, text]}
+
+      when (text = @ss.scan(/nil/))
+         action {[:NIL, nil]}
+
+      when (text = @ss.scan(/\w+/))
          action {[:SYM, text]}
 
       else
