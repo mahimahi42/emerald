@@ -47,4 +47,23 @@ module Emerald
             @value = value
         end
     end
+
+    class EmeraldFile
+        attr_accessor :file
+
+        def initialize(file = nil)
+            @file = file
+            @emerald = EmeraldLang.new()
+        end
+
+        def parse
+            code = ""
+            File.open(@file, "r") do |file|
+                file.each_line do |line|
+                    code += line
+                end
+            end
+            puts(" => #{@emerald.parse(code)}")
+        end
+    end
 end

@@ -10,5 +10,8 @@ end
 if ARGV.count == 0
     Emerald::EmeraldREPL.new()
 else
-    puts "Trying to load a file, but I can't yet!"
+    ARGV.each do |arg|
+        file = Emerald::EmeraldFile.new(arg)
+        file.parse()
+    end
 end
