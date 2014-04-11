@@ -1,8 +1,10 @@
 require "emerald/version"
+require_relative "emerald/parser"
 
 module Emerald
     class EmeraldREPL
         def initialize
+            @emerald = EmeraldLang.new()
             puts "Welcome to the Emerald REPL v#{Emerald::VERSION}\n\n"
             repl = -> prompt do
                 print prompt
@@ -17,7 +19,7 @@ module Emerald
             if input.eql? "quit_repl"
                 abort("Goodbye!")
             end
-            puts(" => #{input}")
+            puts(" => #{@emerald.parse(input)}")
         end
     end
 end
