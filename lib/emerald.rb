@@ -31,7 +31,11 @@ module Emerald
         end
 
         def lookup(var)
-            self.fetch(var)
+            begin
+                return self.fetch(var)
+            rescue KeyError
+                return nil
+            end
         end
     end
 end

@@ -8,43 +8,19 @@ require 'racc/parser.rb'
 
     require_relative "lexer"
     require_relative "../emerald"
-    @global_env = Emerald::EmeraldEnvironment.new()
 
 class EmeraldLang < Racc::Parser
 
-module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 40)
+module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 20)
+    def initialize
+        @global_env = Emerald::EmeraldEnvironment.new()
+    end
+
     def parse(input)
         scan_str(input)
     end
 
     def bin_op(left, op, right)
-=begin
-        case op
-            when "+"
-                return eval("#{left} + #{right}")
-            when "-"
-                return left - right
-            when "*"
-                return left * right
-            when "/"
-                return left / right unless right == 0
-                return 0
-            when "=="
-                return left == right
-            when "!="
-                return left != right
-            when "<"
-                return left < right
-            when ">"
-                return left > right
-            when "<="
-                return left <= right
-            when ">="
-                return left >= right
-            else
-                return nil
-        end
-=end
         return eval("#{left} #{op} #{right}")
     end
 ...end em_parser.y.rb/module_eval...
@@ -138,35 +114,40 @@ Racc_debug_parser = false
 
 # reduce 0 omitted
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 15)
+module_eval(<<'.,.,', 'em_parser.y.rb', 2)
   def _reduce_1(val, _values, result)
      return val[0].to_i 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 16)
+module_eval(<<'.,.,', 'em_parser.y.rb', 3)
   def _reduce_2(val, _values, result)
-     return @global_env.lookup(val[0]) 
+     res = @global_env.lookup(val[0])
+                                if res.nil?
+                                    return val[0]
+                                else
+                                    return res 
+                                end 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 17)
+module_eval(<<'.,.,', 'em_parser.y.rb', 9)
   def _reduce_3(val, _values, result)
      return val[1] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 18)
+module_eval(<<'.,.,', 'em_parser.y.rb', 10)
   def _reduce_4(val, _values, result)
      @global_env[val[0]] = val[2]; return @global_env 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'em_parser.y.rb', 19)
+module_eval(<<'.,.,', 'em_parser.y.rb', 11)
   def _reduce_5(val, _values, result)
      return self.bin_op(val[0], val[1], val[2]) 
     result
