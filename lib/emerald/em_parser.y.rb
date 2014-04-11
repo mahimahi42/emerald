@@ -8,7 +8,8 @@ rule
                                    return 0
                                else
                                    return val[0] / val[2] 
-                               end } ;
+                               end }
+        | LPAREN expression RPAREN { return val[1] }
 end
 
 ---- header

@@ -15,5 +15,10 @@ class EmeraldParserTester
             @result = @emerald.parse("2 + 2")
             @result.should == 4
         end
+
+        it "parses expressions in parens" do
+            @result = @emerald.parse("(2 + 2)")
+            @result.should == 4
+        end
     end
 end

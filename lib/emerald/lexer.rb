@@ -75,6 +75,39 @@ class EmeraldLang < Racc::Parser
       when (text = @ss.scan(/\//))
          action {[:DIV, text]}
 
+      when (text = @ss.scan(/\(/))
+         action {[:LPAREN, text]}
+
+      when (text = @ss.scan(/\)/))
+         action {[:RPAREN, text]}
+
+      when (text = @ss.scan(/\{/))
+         action {[:LBRACE, text]}
+
+      when (text = @ss.scan(/\}/))
+         action {[:RBRACE, text]}
+
+      when (text = @ss.scan(/=/))
+         action {[:EQUAL, text]}
+
+      when (text = @ss.scan(/==/))
+         action {[:CEQUAL, text]}
+
+      when (text = @ss.scan(/!=/))
+         action {[:NEQUAL, text]}
+
+      when (text = @ss.scan(/</))
+         action {[:LT, text]}
+
+      when (text = @ss.scan(/>/))
+         action {[:GT, text]}
+
+      when (text = @ss.scan(/<=/))
+         action {[:LE, text]}
+
+      when (text = @ss.scan(/>=/))
+         action {[:GE, text]}
+
       when (text = @ss.scan(/./))
          action {"Unknown char"}
 

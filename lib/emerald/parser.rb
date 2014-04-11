@@ -10,7 +10,7 @@ require 'racc/parser.rb'
 
 class EmeraldLang < Racc::Parser
 
-module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 18)
+module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 19)
     def parse(input)
         scan_str(input)
     end
@@ -18,26 +18,26 @@ module_eval(<<'...end em_parser.y.rb/module_eval...', 'em_parser.y.rb', 18)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     4,     5,     6,     7,     9,     2,     8,     3,    10,    11,
-    12 ]
+     2,     2,    11,    10,     4,     3,     3,     5,     6,     7,
+     8,    12,    13,    14,    15 ]
 
 racc_action_check = [
-     2,     2,     2,     2,     4,     0,     3,     1,     5,     6,
-     7 ]
+     0,     3,     5,     4,     1,     0,     3,     2,     2,     2,
+     2,     6,     7,     8,     9 ]
 
 racc_action_pointer = [
-     3,     7,    -3,     6,     2,     6,     7,     8,   nil,   nil,
-   nil,   nil,   nil ]
+    -2,     4,     4,    -1,     3,     0,     9,    10,    11,     6,
+   nil,   nil,   nil,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -6,    -6,    -1,    -6,    -6,    -6,    -6,    -6,    13,    -2,
-    -3,    -4,    -5 ]
+    -7,    -7,    -1,    -7,    -7,    -7,    -7,    -7,    -7,    -7,
+    16,    -2,    -3,    -4,    -5,    -6 ]
 
 racc_goto_table = [
-     1 ]
+     1,   nil,   nil,     9 ]
 
 racc_goto_check = [
-     1 ]
+     1,   nil,   nil,     1 ]
 
 racc_goto_pointer = [
    nil,     0 ]
@@ -47,15 +47,16 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 8, :_reduce_none,
-  3, 8, :_reduce_2,
-  3, 8, :_reduce_3,
-  3, 8, :_reduce_4,
-  3, 8, :_reduce_5 ]
+  1, 10, :_reduce_none,
+  3, 10, :_reduce_2,
+  3, 10, :_reduce_3,
+  3, 10, :_reduce_4,
+  3, 10, :_reduce_5,
+  3, 10, :_reduce_6 ]
 
-racc_reduce_n = 6
+racc_reduce_n = 7
 
-racc_shift_n = 13
+racc_shift_n = 16
 
 racc_token_table = {
   false => 0,
@@ -64,9 +65,11 @@ racc_token_table = {
   :ADD => 3,
   :SUB => 4,
   :MUL => 5,
-  :DIV => 6 }
+  :DIV => 6,
+  :LPAREN => 7,
+  :RPAREN => 8 }
 
-racc_nt_base = 7
+racc_nt_base = 9
 
 racc_use_result_var = true
 
@@ -94,6 +97,8 @@ Racc_token_to_s_table = [
   "SUB",
   "MUL",
   "DIV",
+  "LPAREN",
+  "RPAREN",
   "$start",
   "expression" ]
 
@@ -133,6 +138,13 @@ module_eval(<<'.,.,', 'em_parser.y.rb', 6)
                                else
                                    return val[0] / val[2] 
                                end 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'em_parser.y.rb', 11)
+  def _reduce_6(val, _values, result)
+     return val[1] 
     result
   end
 .,.,
