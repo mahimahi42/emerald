@@ -22,3 +22,4 @@ tmp
 mkmf.log
 tex/about.aux
 tex/about.log
+tex/*.swp
