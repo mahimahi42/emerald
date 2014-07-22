@@ -20,3 +20,5 @@ tmp
 *.o
 *.a
 mkmf.log
+tex/about.aux
+tex/about.log
