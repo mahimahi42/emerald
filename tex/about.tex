@@ -2,6 +2,7 @@
 
 \documentclass{article}
 \usepackage{authblk}
+\usepackage{alltt}
 
 \title{Emerald Design Documentation}
 \author[1]{Bryce Davis\thanks{me@bryceadavis.com}}
@@ -11,10 +12,47 @@
 \begin{document}
 
     \maketitle
+    \pagebreak
 
+    \renewcommand{\abstractname}{Notes}
+    \begin{abstract}
+        Emerald is currently pre-alpha. Things \emph{will} change drastically.
+        Be prepared for things to just stop working randomly.
+    \end{abstract}
     \pagebreak
 
     \part{Language Design}
-    Derp
+        \section{Paradigms}
+            \subsection{Imperative}
+                Emerald includes most of C's basic control structures:
+                \begin{itemize}
+                    \item if
+                    \item if-else
+                    \item while
+                    \item do-while
+                \end{itemize}
+                For-loops are not included since they can be implemented using
+                while-loops, compound Boolean statements, and accumulators.
+                Emerald also includes some interesting control structures from
+                Ruby, including:
+                \begin{itemize}
+                    \item unless
+                    \item until
+                \end{itemize}
+                This are the opposites of if and while, and their use can be
+                determined from English usage.
+            \subsection{Object-Oriented}
+                Emerald is unique in the idea that while data and functions are
+                both considered first-class, they are separate. Data are handled
+                using \texttt{types} while functions are their own first class
+                objects. Higher-level data types are combinations of built-in
+                and user-defined types in a class-like format, like so:
+                \begin{alltt}
+                    \textbf{type} {
+                        int data
+                        string name
+                    } sometype
+                \end{alltt}
+            \subsection{Functional}
 
 \end{document}
